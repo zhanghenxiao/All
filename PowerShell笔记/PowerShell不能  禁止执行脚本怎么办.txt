@@ -1,0 +1,7 @@
+﻿PowerShell不能  禁止执行脚本怎么办
+https://jingyan.baidu.com/article/36d6ed1f6e18b61bcf4883de.html
+
+Unrestricted:权限最高，可以不受限制执行任何脚本。
+Default:为Powershell默认的策略：Restricted，不允许任何脚本执行。
+AllSigned：所有脚本都必须经过签名才能在运行。
+RemoteSigned：本地脚本无限制，但是对来自网络的脚本必须经过签名。

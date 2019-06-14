@@ -1,0 +1,16 @@
+﻿
+http://blog.csdn.net/bjash/article/details/43345001
+
+
+setx variable value -m  
+
+variable  
+要设置的环境变量的名字。  
+
+value  
+要设置的值。  
+
+-m  
+设置计算机环境，默认设置是用户环境。
+
+如：setx wegt.exe "C:\Program Files (x86)\GnuWin32\bin" -m

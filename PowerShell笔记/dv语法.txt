@@ -1,0 +1,19 @@
+﻿http://MoreLunches.com 
+
+power中的param: 提示输入参数  （灵活参数验证）
+get content 获取路劲
+
+silentiycontinue  try catch （错误处理机制）异常处理
+
+write-host 是直接输出到控制台的，所以这个值是无法通过变量获得的
+Write-Output则是可以把对象传递输出
+
+read-host 定义文本（input）
+
+$args 给脚本传递参数
+
+foreach($n in $array)循环 使用在管道中，对管道结果逐个处理
+
+trap 扑获异常
+
+New-Item 新建文件 

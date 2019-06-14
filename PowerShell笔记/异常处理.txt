@@ -1,0 +1,156 @@
+﻿查看最后异常
+$Error[0].Exception.Message
+write-host -f 10 "msg: $($error[0].exception.message)"
+trap{write-host -f 12 ($_ = "Error :$($_excepation.message)");return("waring:"+$_),0;continue}
+
+如果你想对错误处理，并且输出友好的信息.须二点：
+第一，抑制内置的错误信息。
+第二，一个能够发现异常是否发生的机制。
+在之前的文章中我们已经知道怎样抑制内置的错误消息了，是通过ErrorAction。
+你如果将ErrorAction设置为“SilentlyContinue”，错误信息就不会输出了。
+
+trap
+扑获到异常可以选择是终止脚本(stop) 还是继续运行（continue）
+Trap语句中也提供了一种存储错误的方式，自动化变量$_ ，你可以对$_进行深加工，定制你自己的异常信息。
+function get-trap{
+    trap{
+        "没有下载成功 ： $($_.Exception.Message)";continue;
+    }
+    Remove-Item "books" -ea stop 
+}
+get-trap 
+没有下载成功 ： Cannot find path 'C:\Users\succful\Desktop\books' because it does not exist.
+
+#查看最后异常
+$Error[0].Exception.Message
+
+
+处理特定异常
+Trap [System.DivideByZeroException] {
+"除数为空!";
+Continue
+}
+Trap [System.Management.Automation.ParameterBindingException] {
+"参数不正确!";
+Continue
+}
+ 
+Trap [System.Net.WebException]{
+"网络异常!"
+Continue
+}
+
+-name xxxxxxxxxxxxx
++ 参数不正确
+
+
+PowerShell终止与非终止错误
+https://www.pstips.net/terminating-errors-and-non-terminating-errors.html
+
+异常处理语句块：
+try
+{
+    # 你的code
+
+}
+catch
+{
+    # 你的code出现异常后，将执行这里的语句
+
+}
+
+function get-test{
+    try{
+        Invoke-WebRequest HTTP://baibai.com 
+    }
+    catch{
+        write-host "testsuccesful"
+    }
+}
+get-test
+
+
+Powershell 在函数中捕获异常
+https://www.pstips.net/powershell-trap-error-in-function.html
+
+powershell 个人博客
+https://www.cnblogs.com/micro-chen/p/5941660.html
+http://www.splaybow.com/post/powershell-loop-variant-operator.html
+14.PowerShell--抛出异常，错误处理
+http://www.bubuko.com/infodetail-774850.html
+
+你们知道 “break”， “continue”， “return” 和 “exit”的作用吗？ 它们是功能强大的语言结构体。
+下面通过一个测试函数来说明它们之间的不同。
+function get-test{
+    $nuber = 1..10
+    foreach($n in $nuber){
+        if ($n -eq 7){
+            break
+            #continue
+            #return
+            #exit
+
+        }
+            $n
+    }
+   }
+
+get-test
+
+if($?) 为flase或 （！$?）为ture
+function get-test{
+    Remove-Item ".\3333" -ea SilentlyContinue
+    if($?){
+        write-host "testeroor"
+        break      
+    }
+        write-host "succesful"
+   }
+
+get-test
+>>succesful
+pu
+try..catch 捕获异常
+try { 1/0 } catch { Write-Warning $_ }
+>>警告： 参试除以零
+
+write-waring 输出警告信息 
+
+switch($var){
+	($_ = ){}
+	($_ = ){}
+	deafult{write-waring "";g0 exit}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

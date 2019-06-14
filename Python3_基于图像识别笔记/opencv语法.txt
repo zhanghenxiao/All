@@ -1,0 +1,122 @@
+﻿李开复先生的《人工智能》
+opencv命名空间  
+cv:: 
+也可在代码开头 using namespace cv;
+
+基于这个网址
+https://blog.csdn.net/firemicrocosm/article/details/48267647
+(一)图像的读取和保存
+显示图片
+#读取照片
+img = cv2.imread("",color_)
+#创建窗口
+cv2.namedwindow("Image")
+#在窗口中显示图片
+cv2.imshow('image',img)
+#等待
+cv2.waitkey(0)
+#最后释放窗口
+cv2.destoryAllwindows()
+
+
+在保存一张图片
+cv2.imwrite("2.png",imag)
+
+
+（二）图像的合并与拆分
+import cv2  
+import numpy as np  
+from matplotlib import pyplot as plt  
+  
+img = cv2.imread("lena.jpg")  
+  
+# 获取图像的尺寸及通道数  
+width, height, ch = img.shape  
+print(width, height, ch)  
+print img.size  # 打印像素数目  
+  
+# 彩色通道的拆分与合并，速度较慢  
+b, g, r = cv2.split(img)  
+img = cv2.merge([b,g,r])  
+  
+# 采用类似 matlab 中的下标索引方式，速度比较快  
+# 分离彩色通道，顺序是BGR,与 matlab 不同  
+B = img[:, :, 0]  
+G = img[:, :, 1]  
+R = img[:, :, 2]  
+  
+# 调整RGB通道的顺序  
+img_RGB = img.copy()  
+img_RGB[:, :, 0] = R  
+img_RGB[:, :, 1] = G  
+img_RGB[:, :, 2] = B  
+  
+# 采用类似 matlab 显示多个坐标轴的形式并行显示，比较方便  
+# 由于 matlab 是按照RGB顺序显示的，所以需要将原图像的顺序重调一下  
+plt.subplot(231), plt.imshow(img,'gray'), plt.title("img_BGR")  
+plt.subplot(232), plt.imshow(img_RGB, "gray"), plt.title("Img_RGB")  
+plt.subplot(233), plt.imshow(B, "gray"), plt.title("B")  
+plt.subplot(234), plt.imshow(G, "gray"), plt.title("G")  
+plt.subplot(235), plt.imshow(R, "gray"), plt.title("R")  
+plt.show()  
+
+
+（三） 图像平滑滤波 
+遥感图像上会出现某些亮度变化过大的区域，或出现一些亮点(也称噪声)。这种为了抑制噪声
+
+（四） 图像梯度及边缘检测
+#sobel算子
+#Laplace 算子
+#canny 算子
+
+（五） 直方图
+（六） 傅里叶变换
+
+小图在大图中能识别
+def mathc_img(image,Target,value):
+    import cv2
+    import numpy as np
+    import os
+    img_rgb = cv2.imread(image)
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread(Target,0)
+    w, h = template.shape[::-1]
+    res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
+    threshold = value
+    loc = np.where( res >= threshold)
+    for pt in zip(*loc[::-1]):
+        cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (7,249,151), 2)
+    cv2.imshow('Detected',img_rgb)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+image=('')
+Target=('C:/Users/qaq/Desktop/small.PNG')
+value=0.9
+mathc_img(image,Target,value)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

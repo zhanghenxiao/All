@@ -1,0 +1,30 @@
+﻿获取控制面板信息
+Get-WmiObject  -Class win32_product
+
+$QQapp = Get-WmiObject -Class Win32_Product | Where-Object {
+    $_.Name -eq "腾讯QQ2012"
+}
+$QQapp.Uninstall()
+
+获取device manager信息
+get-pnpdevice
+
+组策略
+secedit /analyze 分析组策略
+
+得到设备管理器中驱动安装包 
+devcon.exe drivernodes @ROOT\MEDIA *
+>PCI\VEN_8086&DEV_A13A&SUBSYS_81C3103C&REV_31\3&11583659&1&B0
+    Name: Intel(R) Management Engine Interface 
+DriverNode #0:
+    Inf file is C:\WINDOWS\INF\oem3.inf
+    Inf section is TEE_DDI_W10_x64
+    Driver description is Intel(R) Management Engine Interface 
+    Manufacturer name is Intel
+    Provider name is Intel
+    Driver date is 10/3/2017
+    Driver version is 11.7.0.1045
+    Driver node rank is 16719873
+    Driver node flags are 00042044
+        Inf is digitally signed
+

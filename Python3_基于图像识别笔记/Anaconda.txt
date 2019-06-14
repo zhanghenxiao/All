@@ -1,0 +1,2 @@
+﻿conda 集成环境，用于包管理和环境管理的工具 ，任意切换python版本
+Anaconda Prompt 以管理员权限运行

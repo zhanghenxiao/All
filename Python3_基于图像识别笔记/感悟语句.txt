@@ -1,0 +1,21 @@
+﻿调用bat
+a = r"test.bat"
+os.system(a)
+
+相当于程序入口，开始运行py文件直接开始运行程序入口下面的所有命令 ，直接不能被其他py文件调用
+if __name__ == '__main__':  
+	print('test')
+	main()
+
+三目运算
+a,b,c = 1,2,3
+c=a if a>b else b
+如果a>b为真c=a,如果a>b为假 b赋值给c 
+
+网络中进程之间如何通信（Socket）
+首先需要解决问题是如何唯一标识一个进程
+进程PID来唯一标识一个进程
+
+os模块
+f = ("test.txt")
+print(f.read()) #读取txt

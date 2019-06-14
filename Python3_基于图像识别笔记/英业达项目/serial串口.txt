@@ -1,0 +1,51 @@
+﻿下载pyserial 和 serial
+
+serial 串口
+ser = serial.Serial(0) 打开第一个端口
+print(ser.portstr)
+
+往串口写数据
+ser.write("hello")
+打开关闭串口
+ser.open() 
+ser.close()
+
+设置波特率
+ser = serial.Serial('COM1',115200)
+
+读取一个字符，20个字符
+date = ser.read()
+date = ser.read(20)
+4008169090
+
+socket是来建立‘通信’的基础，建立连接，传输数据————‘通信端点’
+socket网络之间的通信
+常用的协议族：AF_INET、AF_INET6、AF_LOCAL（或称AF_UNIX，Unix域socket）、AF_ROUTE等等。
+协议族决定了socket的地址类型，在通信中必须采用对应的地址，如AF_INET决定了要用ipv4地址（32位的）
+与端口号（16位的）的组合、AF_UNIX决定了要用一个绝对路径名作为地址。
+
+常用的socket类型有：SOCK_STREAM、SOCK_DGRAM、SOCK_RAW、SOCK_PACKET、SOCK_SEQPACKE
+ 类型 解释
+SOCK_STREAM 提供有序的、可靠的、双向的和基于连接的字节流，使用带外数据传送机制，为Internet地址族使用TCP。
+SOCK_DGRAM 支持无连接的、不可靠的和使用固定大小（通常很小）缓冲区的数据报服务，为Internet地址族使用UDP。
+
+
+
+STM32 USB HID 鼠标键盘 复合设备 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,26 @@
+﻿get-item 支持通配符 \*   或者\*\*(二级)
+$key=get-item "hklm:\software\microsoft\windows\currentversion\uninstall\*"
+$keys = Get-Item "HKLM:\SYSTEM\CurrentControlSet\Control\Class\*\*"
+
+
+Get-ChildItem
+大纲
+取得一个或多个指定位置中的项和子项.
+
+获取文本多少行
+tocalcount
+(Get-Content d:\1.txt -TotalCount 100)[-1]
+
+貌似能获取到控制面板的版本信息
+get-wmiobject -class win32_product 
+
+显示运行在计算机上所有进程信息
+get-wmiobject win32_process
+
+windows版本
+get-ciminstance -classNAME win32_opeeratingsystem | select windowsdiretory 
+
+查看物理网卡
+Get-NetAdapter -physical
+查看网卡
+Get-WmiObject -Class CIM_PCVideoController

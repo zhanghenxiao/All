@@ -1,0 +1,328 @@
+[TOC]
+
+
+
+##### ﻿按住键释放键
+
+```a&#39;u
+Send("{LWINDOWN}{up}{LWINUP}{up}") 
+```
+
+##### 详细系统信息含bios信息
+
+```powershell
+systeminfo
+```
+
+![1560484608770](C:\Users\succful\AppData\Roaming\Typora\typora-user-images\1560484608770.png)
+
+##### $_ 占位符
+
+​	它就像一个占位符一样，代表着从管道中流过的当前元素。
+
+##### DM取得版本，name
+
+​	路劲:Computer\HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Class
+​	get-item "HKLM:\SYSTEM\CurrentControlSet\Control\Class\*\*"
+​	打开device manager选择任一driver点击properties --events 
+​	找到class guid copy其值在注册表中 Ctrl + F paste寻找
+
+##### 多个条件匹配 switch
+
+```
+function get-test{
+    param(
+        $age
+    )
+    switch($age){
+    10 {“成功”}
+    12 {“失败”}
+    14 {“放弃”} 
+    default {"这是一个测试"}
+    }
+
+}
+get-test -age 33
+```
+
+##### 正则表达式  -match
+
+-match   ++1.筛选数组  2.提取内容
+
+```
+$str = "12das45"
+$pattern = "das(\d{1})" 
+$str -match $pattern
+$Matches
+$Matches[1]
+```
+
+##### 静态方法：
+
+Parse方法将一个字符串转换成DateTime类
+
+```
+$date = ”2012-10-13 23:33:44“
+
+[System.DateTime]: :Parse($date)
+```
+
+Math类中定义了很多实用的静态方法：
+
+###### 一.绝对值(Abs)，三角函数(sin)，取整：
+
+```
+[Math]: :Truncate(2012.7765)
+2012
+```
+
+Math Class】直接调用Math Class的.Net方法进行数字运算 
+
+###### 二、Math的重点使用方法
+
+    取绝对值：[Math]:Abs(“-1”)                 返回：1
+    
+    取较大值：[Math]:Max(“1”,”2”)          返回：2
+    
+    取较小值：[Math]:Min(“1”,”2”)           返回：1
+    
+    进一取整：[Math]: Ceiling(“1.2”)        返回：2
+    
+    向下取整：[Math]:Floor(“1.2”)                        返回：1
+    		（“1.9”）                       返回为： 1
+
+
+
+null的特殊之处在于，它永远不存储内容。
+
+##### Invoke-WebRequest 基于URL传输数据，它支持HTTP， HTTPS，FTP等协议
+
+```
+function get-test{
+    Invoke-WebRequest http://baidu.com -Method post
+    return(
+      write-host "test succesful“
+    )
+}
+get-test
+```
+
+![1560483193882](C:\Users\succful\AppData\Roaming\Typora\typora-user-images\1560483193882.png)
+
+>>test succesful
+
+##### 打开文件夹,程序（各类文件操作）
+
+```
+	start-process (".\autoit3")
+	打开程序
+	Invoke-Item -path "C:\Users\succful\Desktop\caseCsv\case.csv"
+	Invoke-Item c:\Windows\System32\notepad.exe
+	获取已经存在的文件或者获取指定位置的项
+ 	get-item 			hklm:\software\microsoft\powershell\1\shellids\microsoft.powershell\*
+	 此命令显示 Microsoft.PowerShell 注册表项的内容。
+	 
+	获取文件和目录的内容及详细属性名称
+     $file = dir "c.\test"
+     $file | format-list*
+     
+     对文本信息的操作(import-csv为首选) 
+     （get-content）
+	$lastexcel = import-csv ".\last.csv"
+	($lastexcel).Name ---取指定某行
+	$lastexcel.Length (获取所有行数)非常细节的处理
+	Get-Content d:\1.txt -totalcount 10 读取10行内容	
+	(Get-Content d:\1.txt -TotalCount 2)[-1] 读取第二行内容
+```
+
+##### 循环for(条件)
+
+```
+for ($i=0;$i -le $length;$i++){}
+$sum=0
+for($i=1;$i -le 100;$i++)
+{
+    $sum+=$i
+}
+$sum
+```
+
+##### 多个 场景案列 ========
+
+```
+read-host 用户输入
+$name = reade-host "请输入你的名字"  
+$_$DeviceName = read-host;if($_ -eq ""){cls;continue}else{cls;break}
+```
+
+暂停脚本1秒在运行下面的语句
+start-sleep -Seconds 1 
+
+-split 拆分  -jion 的区别
+
+创建winForm程序集 来创建窗口
+未知：异步请求 并发 
+string.IsNullOrEmpty和string.IsNullOrWhiteSpace方法的区别
+判断是空还是空引用   | 判断所有空白符
+
+https://blog.csdn.net/csethcrm/article/details/37928353
+
+[Microsoft.win32] 命名空间
+Registrykey类  封装注册表
+https://msdn.microsoft.com/zh-cn/library/microsoft.win32.registrykey.aspx
+GetValue(String)
+GetValue("Displayname")
+检索与指定名称关联的值,返回null 如果注册表中不存在的名称/值对。
+Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall 包含Displayname
+
+function get-test{
+​	param([Microsoft.Win32.RegsitryKey]$RegKey)
+​	$product = '' select Name,Version,Uninstallstring
+​	$product.Namme = $_.GetValue("Dispalyname")
+​	if(-not [string]::IsNullOrEmpty){
+​	$product
+}
+}
+
+trim() 去掉前后空格
+get-item 获取给定文件的信息
+Set-Location命令用于切换工作目录，它的别名是cd。
+
+
+
+##### 判断系统位数
+
+```powershell
+if ([Environment]::Is64BitOperatingSystem)`
+`{`
+    `'64-bit'`
+`}`
+`else`
+`{`
+    `'32-bit'`
+`}` 
+
+`if else`
+`If（条件满足）{`
+`如果条件满足就执行代码`
+`}`
+`Else`
+`{`
+`如果条件不满足`
+`}
+```
+
+##### $args 万能参数
+
+```
+function sayHello
+{
+    if($args.Count -eq "")
+    {
+        "No argument!"
+    }
+    else
+    {
+        $args | foreach {"Hello,$($_)"}
+    }
+}
+》sayHello 
+No argument!
+》sayHello cc
+Hello,cc
+```
+
+
+
+[]:
+
+++++
+
+》
+
+
+
+
+
+ 获取黄标代码
+$device = Get-WmiObject Win32_PNPEntity
+$erro = $device |select Name,Status | Export-Csv ".\device.csv" 
+$name = Get-Content ".\device.csv" | where{$_ -match "Error"}
+if($name -match "Error"){
+​    "There are yellow marks in the device manager" >> ".\log.txt"
+}
+》获取所有硬盘信息
+get-partition 
+》Powershell 开机自动加载Snapin 和module
+参考网址：http://blog.51cto.com/beanxyz/1742094
+
+循环读取每一个数据
+for ($i=0;$i -le 100;$i++){
+​    $version = $excel.DriverVersion[$i]
+​    Write-Host “The $i line Servername is $version”
+}
+
+
+下载带进度条		 下载到什么地方（outfile）
+invoke-wedrequest -uri "" -outfile ""
+
+删除文件夹(加Force参数，删除无提示好用)
+Remove-item c:\test -Force
+
+比较二个文本不同（Compare-Object）
+参考网址：https://www.jb51.net/article/49078.htm
+select-string 筛选字符串 test | select-string “te” 
+ {$name | Select-String "Wireless" }{"WLAN fail" >> .\log\log.txt}
+
+$match 正则匹配值
+$casename = Get-Content .\data\testdevicemanager.txt -Raw 
+if($casename -match $name){
+​    write-host  -f 10 "pass"
+​    $Matches.Values
+}else{write-host -f 12 "fail"}}
+
+匹配一整行的值
+if（$a -match “\[Error\].+”） 
+
+2019/6/14 设置弹窗，vbs+powershell设置弹窗输入
+#参考连接：https://www.cnblogs.com/dreamer-fish/archive/2013/01/22/2870747.html
+$ws = New-Object -ComObject WScript.Shell
+$wsr = $ws.popup($inputvalue)
+#$wsr = $ws.popup("你好吗？",5,"我的窗口",1 + 64)
+
+
+$inputvalue = ./test.vbs
+$inputvalue
+
+name = InputBox("Enter your name")
+pass = InputBox("Enter your pass")
+WScript.Echo name
+'WScript.Echo pass'  '' 此为vbs注释
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

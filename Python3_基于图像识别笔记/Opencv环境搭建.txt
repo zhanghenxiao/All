@@ -1,0 +1,27 @@
+﻿搭建成功案例（win1064 python3.6.5）
+
+安装步骤
+1， 有安装Anaconda(是否影响搭建待验证)
+2， 下载opencv,http://www.lfd.uci.edu/~gohlke/pythonlibs/
+	已下载：opencv_python-3.4.1-cp36-cp36m-win_amd64.whl
+3， 下载numpy,https://pypi.python.org/pypi/numpy
+	已下载，numpy-1.14.3-cp36-none-win_amd64.whl
+4， 到下载好的路径打开，运行CMD
+
+pip install numpy 和 opencv
+
+
+参考网站：
+（Win10下Python的Opencv3的安装） https://blog.csdn.net/qq_30091945/article/details/78334871
+（在Python3.4中实现opencv3.1.0的安装配置） https://blog.csdn.net/baidu_32134295/article/details/52918453
+(Win10系统下，安装NumPy函数库) https://blog.csdn.net/steven_joker/article/details/77547283
+
+
+NumPy是Python语言的一个扩充程序库。
+支持高级大量的维度数组与矩阵运算，此外也针对数组运算提供大量的数学函数库。
+Numpy内部解除了Python的PIL(全局解释器锁),运算效率极好,是大量机器学习框架的基础库!
+
+OpenCV于1999年由Intel建立，如今由Willow Garage提供支持。OpenCV是一个基于BSD许可 [1] 
+（开源）发行的跨平台计算机视觉库，可以运行在Linux、Windows和Mac OS操作系统上。
+它轻量级而且高效——由一系列 C 函数和少量 C++ 类构成，
+同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。

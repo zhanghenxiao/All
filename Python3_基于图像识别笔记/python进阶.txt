@@ -1,0 +1,320 @@
+﻿参考网址：https://docs.pythontab.com/interpy/args_kwargs/Usage_args/
+在Python文档中有一个全面的指南可以帮助你让你的代码同时兼容Python2和Python3
+全面指南参考网址：https://docs.python.org/3/howto/pyporting.html
++++ *args和**kwargs
+》*args 传入多个参数，接受元组
+def test(cc,*args):
+	print(cc)
+	for i in args:    #args接受所有参数
+		print(i)
+test(1,2,3)
+》**kwargs
+def ktest(**kwargs): 传入键值对 接受字典 ，所以才能用到items()这个方法
+    for key,vaule in kwargs.items(): #字典items()方法以列表返回可遍历的(键,值)元组数组
+        print("{0}=={1}".format(key,vaule))
+        print(key,vaule)
+ktest(name='nice')
+format函数用于字符串的格式化
+print('{我想}带{它}'.format(我想='100',它='万'))
+》使用*args和**kwargs来调用函数
+def test_args_kwargs(arg1, arg2, arg3):
+    print("arg1:", arg1)
+    print("arg2:", arg2)
+    print("arg3:", arg3)
+args('1','2','3')
+test_args_kwargs(*args)
+kwargs = {"arg3": 3, "arg2": "two", "arg1": 5}
+test_args_kwargs(**kwargs)
+
++++ 调试pdb
+import pdb
+def test():
+	pdb.set_trace()
+	return 'this is test'
+print(test())
+    c: 继续执行
+    w: 显示当前正在执行的代码行的上下文信息
+    a: 打印当前函数的参数列表
+    s(step): 执行当前代码行，并停在第一个能停的地方（相当于单步进入）
+    n(next): 继续执行到当前函数的下一行，或者当前行直接返回（单步跳过）
+
++++ 迭代器
+可迭代对象(iterable)  任意对象定义_iter_, 迭代对象就是能提供迭代器的任意对象
+迭代器（iterator）    定义 next
+迭代 (iteration)      循环
+生存器(generators)也是一种迭代器
+str = '123'
+mystr = iter(str)
+print(type(mystr))
+print(next(mystr))
+》创建一个生成器
+def fib():
+	for i in range(4):
+		yiled i * i 
+print(type(fib()))
+for i in fib()
+	print(i)
+	
++++ map,reduce,filter  感悟：reduce得到的是一个值 所以输出不需要list
+输出到一个列表
+items = [1,2,3,4]
+test = []
+for i in items:
+    print(test.append(i))
+print(test)
+》map的用法
+def test(x):
+    return (x*x)
+def add(x):
+    return (x+x)
+fun = [test,add]
+for i in range(5):
+    value = map(lambda x: x(i),fun)
+    print(list(value))
+lambda特性 参考网址https://blog.csdn.net/zjuxsl/article/details/79437563
+lambda x,y:x*y 函数输入是x,y输出是积X*Y
+lambda:None；	函数没有输入参数，输出是None
+lambda **kwargs: 1；输入是任意键值对参数，输出是1
+四个用法
+add = lambda(x,y:x*y)
+add(2,4)
+
+
+filter(lambda x:x%3 == 0,[1,2,3])
+
+cc = filter(lambda x:x>5,[1,2,34,5])
+c = range(1,10)
+cc = filter(lambda x:x>5,c)
+print(list(cc))
+
+ww = reduce(lambda x,y:x+y,[1,2,3,4])
+print(ww)
+
++++ set(集合)数据结构
+是无序不重复的
+list(1,1,2,2)
+print(set(list))
+列如检查列表是否包含重复的元素
+#第一种方法
+setlist = (1,2,1,3,3,4)
+test = []
+for i in setlist:
+	if setlist.count(i)>1:
+		if i not in test:  #不加这句话，会输出相同元素
+			test.append(i)
+print(test)
+#第二种
+tt = [1,1,2,2,2,3,3]
+setapp = set(x for x in tt if tt.count(x)>1)
+
++++ 三元运算(跳过) 已明白
+
++++装饰器(Decorators)
+》一切皆为对象
+def test(x=2,y=4)
+	print(x+y）
+t=test()
+print(t)
+》将函数作为参数传给另一个函数
+def test(func):
+	def test2():
+		print('this is test2')
+		func()
+	return test2
+def test3()
+	print('this is test3')
+test3()
+test3 = test(test3)
+test3
+》我的第一个装饰器
+from functools import wraps
+def decorator_name(f): 
+    @wraps(f) #@wraps接受一个函数来进行装饰，并加入了复制函数名称、注释文档、参数列表等等的功
+    def decotor(*args,**kwargs):
+        if not test:
+            return 'this is test'
+        return f(*args,**kwargs)
+    return decotor  #装饰器加return，才不会语法错误
+@decorator_name
+def func():
+    return('two test')
+
+#test = True
+#print(func())
+test = False
+print(func())
+
++++ 日志
+from functools import wraps
+def logit(logfile='out.log'):
+    def logging_decorator(func):
+        @wraps(func)
+        def wrapped_function(*args, **kwargs):
+            log_string = func.__name__ + " was called"
+            print(log_string)
+            # 打开logfile，并写入内容
+            with open(logfile, 'a') as opened_file:
+                # 现在将日志打到指定的logfile
+                opened_file.write(log_string + '\n')
+            return func(*args, **kwargs)
+        return wrapped_function
+    return logging_decorator
+
+@logit()
+def myfunc1():
+    pass
+
+myfunc1()
+# Output: myfunc1 was called
+# 现在一个叫做 out.log 的文件出现了，里面的内容就是上面的字符串
+
+@logit(logfile='func2.log')
+def myfunc2():
+    pass
+myfunc2()
+
++++ 多个return值
+def test():
+    name = 'zhang'
+    age = '18'
+    return name,age
+print(test())
+
++++ 容器（collections）
++++ 枚举（enumerate）
+list = [2,5,4]
+for x,y in enumerate(list,8):
+    print(x,y)
++++ 对象自省(introspection) 在运行时来判断一个对象的类型的能力
+dir,type,getattr(),hasattr(),isintance,id,inspect_查看活跃对象信息
+
++++推导式
+列表，dict,set都可推导
+list = [x for x in range(10) if x>3 ]
+set = {x for x in range(10)}
+
++++异常处理
+》把异常放在元组里
+try:
+    file = open('test.txt', 'rb')
+except (IOError, EOFError) as e:
+    print("An error occurred. {}".format(e.args[-1]))
+
+》捕获所有异常：
+try:
+    file = open('test.txt', 'rb')
+except Exception:
+    # 打印一些异常日志，如果你想要的话
+    raise
+
++++ lamnda表达式
+简写笔记
+add = lamdba x,y : x+y  #输入x,y 输出x+y
+add(2,3)
+
++++ 一行式（了解下）
++++ 循环（for）
+》双重循环+条件
+for n in range(2,10):
+	for x in range(2,n):
+		if n%x == 0 :
+			print(n, 'equals', x, '*', n/x)
+           		break
+	else:
+        # loop fell through without finding a factor
+        print(n, 'is a prime number')
+》for if else
+for n in range(2,10):
+    if n > 3:
+        print(n)
+    else:
+        print('this')
+
++++ 使用c扩展（了解下）
++++ open函数
+with open('file','r+') as ff
+	cc=ff.read()
+print(cc)
+with open('c.txt','r+') as tt
+	tt.write(1000)
+
+    如果你想读取文件，传入r
+    如果你想读取并写入文件，传入r+
+    如果你想覆盖写入文件，传入w
+    如果你想在文件末尾附加内容，传入a
+
+》startswith() 方法用于检查字符串
+test = cc.startwith(str,2,4)#返回True和Flase
+
++++  协程（了解下）
+def grep(pattern):
+    print("Searching for", pattern)
+    while True:
+        line = (yield)
+        if pattern in line:
+            print(line)
+search = grep('coroutine')
+next(search)
+search.send("I love you")
+search.send("Don't you love me?")
+search.send("I love coroutine instead!")
+
++++函数缓存（了解下）
+from functools import lru_cache
+@lru_cache(maxsize=32)
+def fib(n):
+    if n < 2:
+        return n
+    return fib(n-1) + fib(n-2)
+print([fib(n) for n in range(10)])
+
++++上下文管理器（了解下）
+class File(object):
+    def __init__(self, file_name, method):
+        self.file_obj = open(file_name, method)
+    def __enter__(self):
+        return self.file_obj
+    def __exit__(self, type, value, traceback):
+        self.file_obj.close()
+with File('demo.txt', 'w') as opened_file:
+    opened_file.write('Hola!')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

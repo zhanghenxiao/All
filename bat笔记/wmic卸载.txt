@@ -1,0 +1,9 @@
+﻿@echo off
+wmic product where caption="Intel(R) Management Engine Driver" call uninstall
+wmic product where name="Intel(R) Management Engine Components" call uninstall
+wmic product where PackeageName="Intel(R) Management Engine Components" call uninstall
+目前卸载效果    PackeageName 有效
+echo %errorlevel%
+pause
+Intel(R) Management Engine Driver
+Intel(R) Management Engine Components

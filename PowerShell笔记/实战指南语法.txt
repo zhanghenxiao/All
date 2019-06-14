@@ -1,0 +1,228 @@
+﻿comdlet 相当于命令行的意思
+会挑剔空格和破折号的写法
+帮助文档:Help Get-EventLog -online
+微软也在其网站上发布帮助文档
+请参考MoreLunches.Com网站 管道讲解
+
+发现命令实例(获取)
+help get-eventlog -example
+
+得到你想要的帮助
+help *html*
+help get-service -full(得到的信息更全面)
+get-command
+ get-alias(所有别名)
+
+get-eventlog -logname  security  -computername win8,server1 -verbose 
+              参数名称  参数值    参数名         参数值多个   开关参数()
+注意：命令名称和第一个参数之间必须有空格。
+     参数名总是以英文短横线（-）开头。
+
+图形化展示参数名
+show-command get-eventlog 
+切换路劲  
+set-location 
+
+输出文本到csv,html
+convertto | out-file
+Get-Process | export-CliXML procs.xml
+Get-Process | Export-CSV procs.csv
+import-csv (输出到屏幕)
+notepad procs.xml (打开csv,html)
+
+获取对象类型(GM)
+get-service | get-member
+排序对象
+get-process | sort vm,ID -descending(倒序) 
+输出对象到html
+get-process | convertto-html （屏幕上）
+
+Get-Process | ConvertTo-Html | Out-File test.html（IE文件格式）
+Get-Process | Select-Object -Property name,ID ,VM,PM | ConvertTo-Html |Out-File test2.html
+
+select-object -first(100)  last
+
+管道
+Get-Process | Sort VM-desc | ConvertTo-HTML | Out-File process.html）
+
+进行管道传输
+(A方案)Byvalue 和 （B方案）BypropertyName
+get-service | get-member 查看该命令产生的对象类型
+help get-service -full  
+  
+Required?    	是否必需               	 	false
+Position?     	位置               		named或0
+Default value   没有默认值             		None
+Accept pipeline input?   是否接受管道参数    	True (ByValue)
+Accept wildcard characters? 是否接受通配符
+
+
+大部分情况下，使用相同名词的命令都可以使用ByValue方式相互之间
+进行管道传输（比如Get-Process和Stop-Process）
+
+格式化表格,列表，宽度格式化
+format-table   
+format-list
+format-wide
+哈希表（自定义列）
+get-service | format-table @{n='xianggai' e={$_.name}},status,displayname
+$_.name 本来get-service中的属性（关联当前对象）
+
+
+网格
+out-gridview
+
+占位符
+$_. 
+{$_.status -eq 'running'}
+
+对比操作符
+$_.respoading -eq $false 
+-not $_.respoding 
+
+过滤(where-object)
+get-process | where-object -filter {$_.status -eq 'running'}
+{$_.name -eq 'shuai'}
+
+cpu 相加
+measure-object -property cpu -sum
+
+变量
+转义符 重音符与~处于同一健
+$var = 'zhang','shuai','qian'
+$var[0],$var[1],$var[2]
+$var.count
+$var.tolower  $var.toupper
+$var[1] = $var[1].replace（'zhang','nice'）
+
+①	②		③		④
+$var  =  $var  |  foreach-object  {$_.tolower()}
+① 管道连接的结果   ②把这个变量内容   ③枚举命令  ④对每一个对象
+存储在这个变量中	  放入管道中   	   中的对象	执行这个方法
+
+枚举命令
+foreach-object
+
+子表达式
+$()结构为子表达式
+$($first[0].name)
+
+ 
+用户输入($var)
+$var = read-host
+
+用户输出
+write-host(不会进入管道，直接显示在屏幕上)
+
+write-output(把对象发给管道，不显示在屏幕)
+
+显示调试信息
+write-debug
+
+产生一个错误信息
+write-Error
+
+字体颜色
+write-host "colorful!" -fore Yellow -BackgroundColor Magenta
+
+F8 运行部分命令
+Get-WmiObject -class Win32_LogicalDisk -computername localhost  -filter "drivetype=3" | 
+ Sort-Object -property DeviceID | 
+ Format-Table -property DeviceID, 
+ @{label='FreeSpace(MB)';expression={$_.FreeSpace / 1MB -as [int]}}, 
+ @{label='Size(GB';expression={$_.Size / 1GB -as [int]}}, 
+ @{label='%Free';expression={$_.FreeSpace/ $_.Size * 100 -as [int]}}
+label标签  expression表达式
+
+param()块 ---参数块
+param(
+	$computername = 'locahost'
+)
+
+++++++++++++++
+
+[CmdletBinding()] 
+param（
+    [parameter(mandatory = $Ture)] 强制参数
+    [Alias('hostname')]   添加参数别名
+    [string]$computername,
+    
+    [ValidateSet(2，3)] 
+    [int]$drivertype = 3 
+）
+Write-Verbose "Connecting to $computername" 
+Write-Verbose "Looking for drive type $drivetype" 
++++++++++++++++
+显示详细输出
+.\Get-DiskInventory -computername localhost –verbose
+
+
+
+
+参数验证列表
+help about_functions_advanced_parameters
+
+运算符
+-as 将一个类型转换成新的对象类型
+1000/3 -as[int]
+-is  是=判断属于那种类型,返回结果tru/flase
+123.45 -is[int]
+-replace 替换
+"192.45.33" -replce '33','9999'
+
+分隔（-join）
+<$array = 'one','two','there'
+<$string = $array -join  '| '
+one| two| three
+
+<$string = $array -split "`a"
+one
+two
+there
+
+-contains主要运用在集合中(检查集合中是否有特定值) 作用与like语法相似
+>$contain = 'is','as'，'join','split'
+>$contain -contains 'join' 
+true
+
+-in类似与-contains
+<-in "split" $contains 
+true
+
+字符串处理
+指定字符位置
+indexof()
+<'contains'.indexof(a)
+4
+
+去掉空格 trim（） trimstart() trimend() 对应的是变量
+< $join = "contains".trim()
+contains
+
+<(get.date).month
+10
+<(get.date).adddays(-90) ++离目前时间之前的90天
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,637 @@
+﻿布尔变量
+>>>ture and ture
+ture
+三目运算
+a,b,c = 1,2,3
+a = b if a>c else c
+print(a)
+
+除数（10/3）
+取整除（10//3）
+取余（%）
+
+ord函数
+print(ord('w'))
+print(chr(119))
+
+encode
+print('张加帅'.encode('utf-8'))
+print(b'\xe5\xbc\xa0\xe5\x8a\xa0\xe5\xb8\x85'.decode('utf-8'))
+
+》list列表 list是一种有序的集合，可以随时添加和删除其中的元素。
+insert 插入
+print(list.insert(1,'test')) #1索引位置 
+print(list.index('test'))  #访问testz在列表那个位置
+同时迭代元素和索引 enumerate(list) 转换为一个元素对
+转换为元组
+print(tuple(list))
+》tuple   有序不可不变
+
+1-100相加
+sum = 0 
+for i in range(101)：
+	sum = sum + i
+print(sum)
+
+sum  = 0
+n = 99
+while n > 0:
+    sum = sum + n
+    n = n - 1(决定循环次数)
+print(sum)
+
+break,countine
+
+字典,查询速度快，不会应为字典变大，而慢。list越大查询速度越慢
+可得到一个字典的所有key值 和values
+dict{'a':1,'b':2}
+print(dict['a'])
+
+abs 绝对值函数
+max 最大值函数
+hex() 十六进制
+pass 占位符  不清楚需要写什么  可以先写个pass
+isintace()  判断类型 isinstance(list，liat ) 判断是否可迭代
+type（）  查看类型
+math  给一个坐标位  可技算出其他的坐标
+计算平方根可以调用math.sqrt()函数
+计算平方
+def test(a,b):
+   s=1
+   while b >0:
+       b = b - 1
+       s = s*a
+   return s
+print(test(3,3))
+》函数的参数
+位置参数 def test(x)  x即为位置参数
+默认参数 def(a,b=1)
+可变参数 def test(*test)  test接受到的是一个tuple
+test(1,2)
+test()
+关键字参数  **kw   可以传入0到任意多个“关键字-值”，参数在函数内部被当做一个字典结构。关键跟dict有关
+def cc(name,**kw):
+    print('nice',kw)
+cc('zhang',city = 'chongqing')
+输出:nice {'city': 'chongqing'}
+向关键字参数传入一个dict
+ww ={'1':2,'2':3}
+cc('zhang',**ww)
+限制关键字参数
+def xianzhi(name,age,*,city,job)
+递归函数 test(n - 1)   递推回溯
+切片 print(list[:3])
+from collections import Iterable
+判断一个对象是否可迭代 isinstance('adc',Iterable)  Iterable迭代对象
+思考得出 isinstannce(str,Iterable)
+列表生成器 print(list(range(1,9)))
+快速生成个乘积的列表 print([x*x for i in range(1,6)])
+得到脚本当前路劲下的所有文件 print([d for d in os.listdir('.')])
+验证得 print（os.listdir()）    
+生成器（generator） print(a*a for in range(10))  print(next(test))  
+Iterator对象表示的是一个数据流
+生成器属于Iterator对象  list,set,str属于Iterable对象 可以通过iter()函数获得一个Iterator对象
+set ={1,2}  print(isinstace(iter(set),Iterator))   print(next(iter(set)))
+
+
+map()函数  输出print(list())
+def f(x):
+	return x*x
+r = map(f,(1,2,3))
+print(list(r))
+转为str  print(list(map(r)))
+from functools import reduce
+reduce 接收二个参数  可用于序列求和等
+def test(x,y) 
+	return x*y
+print(reduce（test,[1,3,8]）)
+filter（） 接收一个参数  是返回符合条件的结果  输出也需要list与map()类似
+def test(x):
+	if x>5 :
+		return x
+print(list(fliter,[1,5,10]))    
+sorted 排序  从小到大
+print(sorted([1,-1,2],key=abs))
+reversed 倒序输出列表  reverse=Ture 从大到小
+
+闭包 f（）
+nonlocal声明  nonlcal a  
+每次调用，自增1 
+def createcounter():
+    a = 0
+    def counter():
+        nonlocal a
+        a+=1
+        return a
+    return counter 不能带有括号counter()
+f = createcounter
+print(f())
+print(f())
+
+lambda 匿名函数
+f = lambda a:a*a 
+y = lambda a:a+1
+print(f(2))
+print(y(2))
+
+
+装饰器：Decorator
+ 问题：
+1、代码行数很多，查找很麻烦，而且要挨个找出，把新功能函数加进去。
+2、代码已经上线，对源代码修改可能会导致未知故障发生。（新增功能是不能修改源代码的）
+3、代码已经上线，不光源代码不能随便修改，就连函数调用方式也不能随意修改。
+解决方法：使用装饰器进行代码修饰。
+4、装饰器对被装饰的函数时完全透明的。（源代码感知不到装饰器函数的存在，但装饰器函数确实影响着源代码）
+一个完整的 decorator
+import functools
+def log(x):
+	@functools.wraps(func)   定义函数对象名清晰不产生混乱        
+	print(x.__name__)
+@log 相当于 test = log(test)   3层嵌套@log（nice） 相当于 test=log(nice)(test)
+def test():
+
+时间差模块
+start = time.ctime（）
+（end-start)*1000
+
+偏函数pertial 
+int('123',base = 8) 等同  int('123',8)
+int2 = functools.pertial(int,base=2)
+print(int2('100'))
+也可以传参数如  print(int2('100',base=8))
+创建偏函数时，实际上可以接收函数 对象、*args和**kw这3个参数，固定住参数base = 2
+那么所有偏函数操作的参数，都是把全部参数转成以上2种类型，元组或者字典，然后传给原函数处理。
+
+模块(sys)
+sys有一个argv变量，用list储存了命令行所有的参数
+args = sys.argv
+print("从外部传一个参数：%s" %(args[1]))
+
+    声明变量：让编辑器知道有这一个变量的存在
+    定义变量：为不同数据类型的变量分配内存空间
+    初始化：赋值，填充分配好的内存空间
+    引用：通过引用对象(变量名)来调用内存对象(内存数据)
+在python程序创建.改变，查找变量名，都是在保存变量名的空间进行的，称之为命名空间也叫作用域。
+python变量的作用域由变量所在源代码中的位置决定。
+作用域的产生：只有变量在module模块，class类。def函数定义的时候
+在if-elif-else、for-else、while、try-except\try-finally 并不会产生作用域
+公开（public）
+非公开（private）
+def _private_1(name):
+	return "hello,%s" %(name)
+def _private_2(name):
+	return "22"
+def test(name):
+	if len(name)==1
+		return _private_1
+
+	else:
+		return _private_2
+
+面向对象编程
+类class和实例instance   
+>>>print(bart)
+<__main__.Student object at 0x10a67a590>  是内存地址
+class student(object)
+	def __init__(self,name,age)
+	self.name = name
+	self.age = age
+	self._high = high (私有属性)
+	print（'他的名字是%s，有%d岁'%（name,age）） 这里是处于同个函数体，注意不处于都应写成（self.name,self.age）
+ 	def test(self):
+        	print('名字是%s，有%d,身高是%dcm'%(self.name,self.age,self._high))
+bart = student('zhang',18)
+
+封装：数据封装，在内部定义访问数据的函数
+如  def testname(self):
+        if len(self.name) > 5 :
+            return self.name
+        else:
+            return self.age
+bart = student('100000',18)
+print(bart())
+继承和多态
+class teststudent(student):  继承student(父类) 
+	def testname(self):  #修改父类办法这是一个多态
+ 		if len(self.name) == 3:
+            		return 'this is duotai'
+        	else:
+            		return 'duo yu'
+	
+nice = teststudent('zhang','18','180')  注意在实例化的位置加上参数
+print(nice.test())
+print(nice._high)
+
+获取对象信息
+type()  isinstance()
+dir() 获得一个对象的所有属性
+nice 必须实例化后才能进行  获取属性（name）操作
+hasattr（nice,'name'）  #有属性name吗  返回ture或false
+setattr(nice,'x',100)  #设置一个属性x，值为100
+getattr(nice,'x',404)  #错误返回attribuce   可定义一个默认值404    
+fn = getattr(nice,'name')
+有待验证 fn.name等同于 fn(）
+牛逼的例子：
+有一个xuexi.py文件，里面代码如下
+class MyObject(object):
+    def __init__(self):
+        self.x = 9
+    def add(self):
+        return self.x + self.x
+    def sub(self):
+        return self.x - self.x
+其他py文件
+from xuexi import MyObject
+couputer = MyObject()              #获取属性都需实例化  
+def run(x):
+    inp = input('')
+    if hasattr(couputer,inp):
+        func = getattr(couputer,inp)  #基本操作 
+        print('test')
+        print(func())
+    else:
+        setattr(couputer,inp,lambda x:x+ 1)  lambda实例#foo = [1,2] #print(list(map(lambda x :x+1,foo )))
+
+        func = getattr(couputer,inp)
+        print(func(x))
+if __name__ == '__main__' :
+    run(10)
+
++++面向对象高级编程
+》给实例绑定属性，给实例绑定方法 参考网址：https://www.cnblogs.com/seirios1993/p/6624157.html
+class people():
+	def __int__(sef,name)
+		self.name=name
+类绑定属性a.name('zhang')
+实例绑定属性 a=people('zhang')
+类绑定方法 
+__slots__  只允许对实例（类）绑定name,age二个属性，只对当前实例（类）起作用
+def student():
+	__slots__ = （'name','age'）
+
+》@property(属性函数) 参考网址：https://blog.csdn.net/jinxiaonian11/article/details/53726730，/
+
+》多重继承
+class animal(object):
+    pass
+class test():
+    pass
+class mammal(animal,test):
+    pass
+
+》定制类 __str__
+》使用枚举类
+from enum import Enum,unique
+@unique
+class detest(Enum):
+    one = 1
+    two = 2
+    there = 3
+    four = 4
+print(detest.there.value)
+》使用元类
+def fn(self,name = 'work'):
+    print("%s"%name)
+test = type('test',(object,),dict(test= fn))
+
++++错误。调试和测试
+》错误处理
+错误处理
+import logging
+try:
+	r = 10/1
+	print("result:",r)
+except Exception as e :
+	print("Exception",e)
+	logging.Exception(e)
+else:
+	print("no error")
+finally:
+	print('end')
+	
+抛出错误
+def foo(s):
+    n = int(s)
+    if n == 0:
+        raise ValueError('invalid value:%s'%s)
+    return 10/n
+def bar():
+    try:
+        foo('0')
+    except ValueError as e :
+        print("ValueError:",e)
+        raise
+bar()
+》调试 
+断言assert
+def foo(s):
+	n = int(s)
+	assert n!=0 ,'n is zero!'
+	return 10/n
+def main():
+	foo('0')
+logging不会抛出错误，而且可以输出到文件
+import logging
+logging.basicConfig(level=loging.INFO)
+s = 0
+n = int(s)
+loggng.info('n=%d'%n)
+print(10/n)
+python调试器pdb
+》单元测试
+参考网址
+https://www.cnblogs.com/znyyy/p/8086281.html
+pip install unittest-xml-reporting
+比较正解网址：https://blog.csdn.net/IT_zxl001/article/details/79624566
+def sum(x+y):
+	return(x+y)
+class mytest(unittest.TestCase): 
+
+	def testsum(self):
+		self.assertEqual(sum(1,2),2,'test is fail')  
+
+
+if __name__ = '__main__'
+	unittest.main()
+》文档测试
+参考网址：https://www.cnblogs.com/yin-tao/p/7084937.html
+doctest,就是对测试部分测试
+
++++ IO编程
+》文件读写  特别注意使用完毕后正确关闭它们
+f = open(filepath,'r'。encond('utf-8'))
+print(f.read())
+f = open(filepath,'w')
+print(f.write('my.word'))
+f.close
+》StingIO 在内存中读写
+from IO import StingIO
+f = StingIO()
+f.write('hello')
+print(f.getvalue())
+》操作文件和目录
+参考网址：https://www.cnblogs.com/zhangxinqi/p/7826872.html
+import os
+#判断文件是否存在
+os.access(path,os.F_OK) 
+os.path.exists('/python/test.py') #判断指定的对象是否存在
+os.path.abspath('.')#查看当前路劲
+os.mkdir(path) #创建一个文件夹
+os.path.split(path) #得到路劲+file.txt
+》序列化
+pickle.dumps 转储
+pickle.loads 负载
+json.dumps()
+参考网址：https://www.cnblogs.com/wang-yc/p/5616187.html
++++进程和线程
+》多进程 
+multiprocessing
+Pool
+如果要启动大量的子进程，可以用进程池的方式批量创建子进程
+》多线程
+共用一个变量
+参考网址：https://blog.csdn.net/sunhuaqiang1/article/details/70168015
+1.使用线程可以把占用长时间的任务放在后台去处理
+2.在一些等待界面，实现一些用户的输入，节约珍贵资源如内存占用等，
+def testthread(a):
+    while a >0:
+        print('你要有自信喔')
+        a = a-1
+def testtwo(a):
+def testtwo(b): #也可，
+    for i in range(a):
+        print(i)
+
+t1 = threading.Thread(target=testthread,args=(10,))
+t2 = threading.Thread(target=testtwo,args=(5,))
+#t1.start()
+#t2.start()
+》多核CPU
+Python解释器由于设计时有GIL全局锁，导致了多线程无法利用多核
+》ThreadLocal
+local_school = threading.local()
+def test():
+    std = local_school.test
+    print('hello,%s (in %s)'%(std,threading.current_thread().name))
+def process_thread(name):
+    local_school.test = name
+    test()
+t1 = threading.Thread(target= process_thread, args=('Alice',), name='Thread-A')
+t2 = threading.Thread(target= process_thread, args=('Bob',),name='Thread-B')
+t1.start()
+t2.start()
+》进程 vs. 线程
+通常我们会设计Master-Worker模式，Master负责分配任务，Worker负责执行任务
+
++++正则表达式
+\w 匹配一个数字或一个字母
+\d 匹配一个数字
+\d{3} 连续匹配3个数字 
+\d{3,6} 连续匹配6个数字
+\s 可以匹配一个空格
+进阶 []表示范围
+re.match(r'\d','3781a').group()
+re.split(r'\s','a b c')
+
++++常用模块
+》datetie获取当前日期
+from datetime import datetime 
+now = datetime.now()
+》collections是Python内建的一个集合模块，提供了许多有用的集合类。
+from collections import namedtuple
+zuobiao = namedtuple('test',['x','y','z'])
+p = zuobiao(3,2,4)
+print(p.x)
+》Counter是一个简单的计数器，例如，统计字符出现的个数：
+》base64 是一种最常见的二进制编码方法
+base64.b64encode(b'binary\x00string')
+base64.b64decode(b'YmluYXJ5AHN0cmluZw==')
+》struct模块来解决bytes和其他二进制数据类型的转换。
+struct.pack('>I', 10240099)
+struct.unpack('>IH', b'\xf0\xf0\xf0\xf0\x80\x80')
+》hashilb python提供常见的摘要
+import hashlib
+md5 = hashlib.md5()
+md5.update('how to use md5 in python hashlib?'.encode('utf-8'))
+print(md5.hexdigest())
+》hmac
+import hmac
+message = b'Hello, world!'
+key = b'secret'
+h = hmac.new(key,message,digestmod='MD5')
+print(h.hexdigest())
+》itertools 提供了几个无限迭代器
+》contextlib
+》Urlib  的request模块可以非常方便的抓取内容
+from urllib import request
+with request.urlopen('https://api.douban.com/v2/book/2129650') as f:
+    data = f.read()
+    print('Status:', f.status, f.reason)
+    for k, v in f.getheaders():
+        print('%s: %s' % (k, v))
+    print('Data:', data.decode('utf-8'))
+》HTMLParser
+
++++常用第三方模块
+》pillow 图像识别库
+》requests 访问网页
+import requests
+r = requests.get('https://www.douban.com/')
+r = requests.get('https://www.douban.com/',params={'q': 'python', 'cat': '1001'})
+print(r.status_code)
+print(r.text)
+》chardet 检查编码
+chardet.detect(b'Hello, world!')
+xx = 'hello'.encode('utf-8')
+print(chardet.detect(xx))
+》psutil 获取系统资源信息，是系统管理员和运维小伙伴不可或缺的必备模块。
+psutil.cpu_count()
+获取CPU信息，获取进程信息
+获取内存信息，获取磁盘信息，获取网络信息
+》获取进程信息，这个模块奇妙梦幻,可以获取到所有进程的详细信息
+psutil.pids() #获取所有进程ID
+p = psutil.Process(6908)
+p.name()
+》virtualenv 就是用来为一个应用创建一套“隔离”的Python运行环境。
+》图形界面
+得到一个调用class得新方法
+class test():
+    def __init__(self,name):
+        self.name = name
+        self.age()
+        self.yy()    #在构造函数中实例化后不用单独调用，也能使用。
+    def age(self):
+        print('1oo')
+    def yy(self):
+        print('yy')
+pp = test('')
+
++++网络编程
+》TCP/IP简介
+TCP协议则是建立在IP协议之上的。
+TCP协议负责在两台计算机之间建立可靠连接，保证数据包按顺序到达。
+TCP协议会通过握手建立连接，然后，对每个IP包编号，确保对方按顺序收到，如果包丢掉了，就自动重发。
+端口有什么作用？在两台计算机通信时，只发IP地址是不够的，因为同一台计算机上跑着多个网络程序。
+一个TCP报文来了之后，到底是交给浏览器还是QQ，就需要端口号来区分。
+每个网络程序都向操作系统申请唯一的端口号
+♥串插一个 Centos ，Ubuntu，Deepin 三个 Linux发行版本
+centos 桌面很丑，
+Ubuntu 界面漂亮，使用方便容易上手，但是 对Windows 软件支持太弱了   
+Deepin 刚开始学习Linux的人是福音啊
+》TCP编程
+客户端
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #创建一个socket
+s.connect(('127.0.0.1', 80)) #建立连接
+print(s.recv(1024).decode('utf-8'))
+for data in [b'Michael',b'Tracy',b'Sarah']:
+    s.send(data)
+    print(s.recv(1024).decode('utf-8'))
+s.send(b'exit')
+s.close()
+服务器
+首先要绑定一个端口并监听来自其他客户端的来连接
+一个Socket依赖4项：服务器地址、服务器端口、客户端地址、客户端端口来唯一确定一个Socket
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #创建一个socket,基于IP和TCP协议的socket
+s.bind(('127.0.0.1')) #监听端口
+s.listen(5) #最大连接数量
+def tcplink(sock,addr):
+    print('Accept new connection from %s:%s' % addr)
+    sock.send(b'Welcome!')
+    while True:
+        data = sock.recv(1024)
+        time.sleep(1)
+        if not data or data.decode('utf-8') == 'exit':
+            break
+        sock.send(('Hello, %s!' % data.decode('utf-8')).encode('utf-8'))
+    sock.close()
+    print('Connection from %s : %s closed.' % addr)
+while True:
+    sock, addr = s.accept()
+    t = threading.Thread(target=tcplink, args=(sock,addr))
+    t.start()
+》UDP编程
+用UDP传输数据不可靠，但它的优点是和TCP比，速度快，对于不要求可靠到达的数据，就可以使用UDP协议
+
++++电子邮件
+》SMTP发送电子邮件
+模块email负责构造邮件，smtplib负责发送邮件
+》pop3收取邮件
+poplib模块，实现了POP3协议，可以直接用来收邮件。
+
++++WeB开发
+》HTTP协议简介
+HTTP是在网络上传输HTML的协议，用于浏览器和服务器的通信
+书籍：HTTP权威指南
+》HTML简介
+Web应用的本质就是：
+1.浏览器发送一个HTTP请求；
+2.服务器收到请求，生成一个HTML文档；
+3.服务器把HTML文档作为HTTP响应的Body发送给浏览器；
+4.浏览器收到HTTP响应，从HTTP Body取出HTML文档并显示。
+》WSGI接口
+无论多么复杂的Web应用程序，入口都是一个WSGI处理函数。
+HTTP请求的所有输入信息都可以通过environ获得
+》使用WEB框架
+Flask 框架
+Django：全能型Web框架
+》使用模块（MVC）
+
++++异步IO
+》协程
+最大的优势就是协程极高的执行效率，因为子程序切换不是线程切换，而是由程序自身控制
+因为协程是一个线程执行，那怎么利用多核CPU呢？最简单的方法是多进程+协程，既充分利用多核，
+又充分发挥协程的高效率，可获得极高的性能
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

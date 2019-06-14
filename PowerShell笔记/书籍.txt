@@ -1,0 +1,2 @@
+﻿Windows PowerShell实战指南（第2版） 
+博客园  http://www.cnblogs.com/ceachy/tag/PowerShell/

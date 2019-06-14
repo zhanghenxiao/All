@@ -1,0 +1,391 @@
+﻿#!/usr/bin/python3
+多行注释（"""）
+代码过长(+ \) code = on + \
+		e
+字符串(str)
+str = '12345'
+#!/usr/bin/python3 调用python解释器
+print（str[0]）  得到的是第一个元素
+
+转义特殊字符(\n) 就是换行的意思
+print('test\nname')
+
+等待用户的输入
+input("请输入")
+
+if、while、def和class这样的复合语句，首行以关键字开始，以冒号( : )
+if Ture:
+	print('Ture')
+
+输出  print()
+不换行输出 print(x,end="")
+	  print(y,end="")
+	  print()
+
+导入模块 import sys
+将模块函数全部导入 from sys import*
+调用模块函数 sys.argv
+(注意)查看该模块所有可用函数（方法） dir(sys)
+
+2018——5——10：
+help（）
+整数变量 counter
+变量赋值
+a = b =c =1
+a,b,c = 1,2,'test'
+
+六个标准数据类型
+number(数字)
+string(字符串) 元素不能修改
+list(列表) list = [1,2,3] 列表元素可以改变
+TUPLE(元组) tuple = (1,2)  输出二次元组（tUple * 2） 连接元组（tuple+tuple） 元素不能修改
+sets(集合)  set = {1,2} 集合可以进行运算（| / & / ^ ）
+Dictionary(字典) dict = {'test':1,'test2'：2}  print(dict.keys()) 输出所有键  dict.values 值
+
+type 返回数据类型
+a = 1
+print(type(a))
+isintance 判断ture还是false
+print(isintance(a,int))
+
+数值运算 
+/ 返回浮点型（2/4） 0.5
+// 返回整数型（2//4） 0
+
+数据类型转换
+str = '22'
+print(int(str))
+
+2018——5——10：
+算术运算符（+ -）
+比较运算符（< >）
+赋值运算符（+=） c+=a c=c+a
+位运算符 （二进制）
+逻辑运算符（and or） and都为真  or 一个为真
+成员运算符（in）  c =100 list = [100,43,55]   if (c in list):
+身份运算符（is）  a is b
+优先级运算符（）
+
+字符串格式化
+print("我叫 %s 今年 %d %('小明'，10)")
+%s 格式化字符串
+%d 格式化整数
+
+字符串内置函数
+capitalize()
+将字符串的第一个字符转换为大写
+
+列表内置函数
+len(list) 列表元素个数
+max(list) 列表元素最大值
+
+元组内置函数
+tuple(seq)
+
+字典内置函数
+
+
+python3 编程第一步
+end="" 将结果输出在同一行
+print(a,end="")
+
+if：
+	if ：
+	else:
+else:
+	if:
+	else:
+
+2018-5-12  
+条件结构
+test = ‘yes’
+while test == 'yes'
+	try:
+
+	except ValueError:
+	test = input('退出no/yes')
+input('按enter退出程序')
+
+循环结构
+while语句
+sum = 0
+while sum < 5:
+	print(sum)
+	sum += 1
+else:
+	print()
+
+for语句
+for i in list:
+	print(i)
+	break 打断循环
+range函数
+for i in range(len(list))
+for i in range(5)
+	
+pass语句
+if i == 2：
+	pass
+	print("执行pass块")
+while里面可以while if break (灵活运用)
+
+
+迭代器（iter）,生成器（fibonacci）
+it = itter(list)  创建迭代对象
+print(next(it))   next 访问元素
+
+
+2018 - 5 -13 ===========================================
+定义函数def test():   与return灵活运用
+def test(age)
+test(12)
+
+传可变和不可变对象
+匿名函数（lombad）
+return语句
+def test(a,b)
+	test = a+b
+	return test
+变量作用域：（L-E-G-B）
+local局部变量
+enclosing闭包函数外的函数中
+Global 全局变量
+Bullt-in 内建作用域
+
+当内部作用域想修改外部作用域的全局变量时(golobal,nonlocal)
+def test():
+	global sum
+	def test2():
+		nonlocal sum
+
+细节处理（golocal）
+a = 10
+def test():
+    global a
+    a = a + 1
+    print(a)
+test()
+	
+
+数据结构
+将列表当作堆栈使用
+list.append(111)
+list.pop()
+
+列表推导式
+list = [3,6,9]
+print([2*i for i in list])
+
+if还可进行过滤
+print([2*i for i in list if i >8])
+
+del语句
+del list[2:5]
+
+字典
+print(dict[key])
+遍历字典技巧
+items() - 解读
+enumerate() - 索亚位置
+for i,v in list.items():
+foe i,v in enumerate([key,key2])
+
+反向遍历列表 - reversed()
+for i in reversed(list)
+for i in reversed(range(1,10,2))
+
+模块间的调用
+调用模块 - imort test
+调用模块函数 - test.test(a)
+from test import test 
+
+读和写文件
+open(filename,mode)
+f = open("/tmp/foo.txt", "w")
+f.write( "Python 是一个非常好的语言。\n是的，的确非常好!!\n" )
+f.close()
+
+
+异常处理
+try：
+except ValueError:
+抛出指定异常 raise
+
+面向对象
+类对象
+class test:
+	i = 100
+	def f(self):
+		return 'hello'
+
+实例化对象
+x=test()
+访问类的属性和方法
+print（"test类的属性 "x.i）
+x.f()
+
+传参数的类
+class test:
+	def __init__(self,agrs,bule)
+	self.a = agrs
+	self.b = bule
+x = test(3.0,-4.5)
+print(x.a,x.b)	
+
+#定义一个类
+class test:
+	定义基本属性
+	name = ''
+	age = 0
+	#定义私有属性
+	——weight = 0
+	定义构造方法
+	def __init__(self,n,a,w)
+		self.name = n
+		self.age = a
+		self.__weight = w
+	def speak(self):
+		print("%s 说我： %d 岁." %(self.name,self.age))
+
+#实例化类
+x = test('boy',10,39)
+x.speak()
+
+单继承 
+class people(test):
+	garde = ''
+	def __init__(self,n,a,w,g)
+	# 调用父类的构造函数
+	test. __init__(self,n,a,w)
+		self.garde = g
+	#重写父类的方法
+	def speak(self):
+		print("%s说是%d岁,还在读%d年纪"%（self.name,self.age，self.garde）)
+y=people('小明'，32，43，55)
+y.speak()
+
+多重继承
+class exit(speaker,student)
+先创建一个类，定义属性，创建构造方法（self,n,a,w,g）,调用父类的构造（test.__init）
+#方法名同，默认调用的是在括号中排前的父类方法
+
+方法重写
+在子类中写相同的函数名,即是方法重写。
+super(test,y).mytest #用子类对象调用父类已被覆盖的方法
+
+类的属性
+name = ''
+__wghit = 0
+
+类的方法
+def test(self): #公共方法
+def __test(self): #私有方法 ，实列不能访问私有方法 y.__test()
+self.name = n
+self.__wghit = w
+
+类的专有方法：
+__init__ :构造函数，生成对象使用的
+———del—— ：析构函数，释放对象使用
+——add--  :加运算
+
+重载：  
+def __str__(self):
+	return '这个人的名字是%s,已经有%d岁了！'%(self.name,self.age)
+
+a=people('孙悟空',999)
+print(a)
+
+2018_5_14 ++++++++++++++++++++++++++++++++++++++++
+标准库浏览
+操作系统接口 os
+print(dir(os))
+print(help(os))
+
+文件通配符 glob
+import glob
+glob.glob('*.py')
+
+命令行参数 sys
+字符串正则匹配 re
+访问 互联网  urllib
+from urllib.request import urlopen
+
+
+2018 - 5 - 15 +++++++++++++++++++++++++++++++++++
+正则表达式
+import re
+print(re.match('www','www.com').span())  span()从起始位置
+re.search 
+re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，则匹配失败，函数返回None；
+而re.search匹配整个字符串，直到找到一个匹配。
+
+num = re.sub(r'\D','',phone)
+print(num)
+
+print(re.split('\W+','runoob,cc,rr'))
+print(re.split('cc','runoob,cc,rr'))
+
+time模块
+time.ctime() --年/
+
+
+多线程 
+Python3 通过两个标准库 _thread 和 threading 提供对线程的支持
+import —thread
+创建二个线程
+def test(test_thread):
+    print(test_thread,time.ctime())
+try:
+	_thread.start_new_thread(test,(100_1,))
+	_thread.start_new_thread(test,(100_2,))
+except:
+	print("Error :无法启动线程")
+
+while 1；
+	pass
+
+threading 模块创建线程
+
+线程同步 
+# 获取锁，用于线程同步
+        threadLock.acquire()
+
+# 释放锁，开启下一个线程
+        threadLock.release()
+
+线程优先级队列（Queue）
+
+对于线程的理解：任何def class 均可使用多线程
+_thread.start_new_thread(pop,('test_1',1,))
+
++++ GUI编程(tkinter)
+import tkinter
+top = tkinter.Tk()
+top.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

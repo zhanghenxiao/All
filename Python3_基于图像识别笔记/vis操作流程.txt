@@ -1,0 +1,39 @@
+﻿Visual Inspection System
+Components
+•        Server 
+Server is a program. It’s response for
+  1. communicating with Camera
+  2. communicating with USB HID device
+  3. doing image recognition (OpenCV)
+  4. doing Optical Character Recognition (OCR)
+Additionally, it provide API that user can communicate with it through HTTP.
+•        Client 
+Client is a library which implement Server commands. It’s provide python API that user can call directly.
+Besides, it provide API that can draw image, control excel and word program.
+See Client API document for more detail.
+Workflow
+1.      Connect to Camera and USB HID Keyboard Mosue Joystick composite device.
+2.      Find laptop’s edges
+3.      Transform trapezoid into rectangle (perspective transform)
+4.      Map camera’s coordinate axis and Mouse’s coordinate axis
+5.      Do testing.
+More detail
+•        OpenCV
+we used OpenCV to do
+1. find subimage in a image (template matching algorithm)
+2. find the edges of testing laptop (used Denoising, Edge detect) 
+•        OCR
+use LSTM neural networks based OCR engine 
+•        Automated control 
+1.      USB HID Keyboard Mosue Joystick composite device
+2.      Percussion device for internal keyboard
+Reference
+1.      OCR https://en.wikipedia.org/wiki/Optical_character_recognition
+2.      OpenCV https://opencv.org/
+3.      Template matching https://en.wikipedia.org/wiki/Template_matching
+4.      Denoising https://en.wikipedia.org/wiki/Noise_reduction
+5.      Edge detection https://en.wikipedia.org/wiki/Edge_detection
+6.      LSTM https://en.wikipedia.org/wiki/Long_short-term_memory
+7.      Perspective transform https://en.wikipedia.org/wiki/3D_projection
+8.      Perspective transform example https://www.pyimagesearch.com/2014/08/25/4-point-opencv-getperspective-transform-example/
+h

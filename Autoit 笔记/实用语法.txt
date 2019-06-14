@@ -1,0 +1,12 @@
+﻿改变窗口文本
+Run("powershell.exe")
+WinWait("Administrator: Windows PowerShell")
+ControlSetText("Administrator: Windows PowerShell","","","test")
+WinActivate("test")
+Send("test")
+
+勾选复选框
+ControlCommand ( "窗口标题", "按钮文本描述", "ButtonNN", "UnCheck", "" )此句作用是不选择此复选框
+
+实用网站
+https://wenku.baidu.com/view/eabefc4fc850ad02de804120.html

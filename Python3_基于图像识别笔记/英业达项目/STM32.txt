@@ -1,0 +1,24 @@
+﻿ST的STM32系列，ST为开发者提供了非常方便的开发库。
+目前有标准外设库（STD库），HAL库，LL库，
+STD库相互独立。互不兼容
+
+STM32Snippets
+它是代码示例的集合，直接基于STM32外设寄存器，由于处在最底层，因此需要开发者直接操作外设寄存器，
+对开发者要求比较高，通常针对于对汇编程序比较了解的资深嵌入式工程师！
+
+keil 
+c51
+参考网址：https://blog.csdn.net/ybhuangfugui/article/details/52932112
+
+STM32  系列++++++++++++++++++++++
+CubeMX name:Herry last:zhang password:2497430769@qq.com
+参考网址：https://blog.csdn.net/ybhuangfugui/article/details/52225736
+工具：STM32CubeMX，开发STM32比较流行的开发工具
+由于STM32CubeMX软件是基于JAVA环境运行的，所以需要安装JRE才能使用
+1，新建工程- 选择对应开板
+2，配置外设（RCC） 找到对应管脚
+3.时间设置
+4.功能外设配置  Analog模拟 COnnectivity通讯连接 可改用户标签LED
+5.功耗计算
+6.生成工程报告  勾选生成c文件
+7.生成工程代码  project-Gernerate code

@@ -1,0 +1,33 @@
+﻿查看内建函数源码 Ctrl+B
++++ day11
+》字符串的魔法（三）
+s =  '123456\t12345\t1234567\t123'
+print(s.expandtabs(4)) # 占位符的意思，第一个\t占二个位置，\t占三个
+表格输出
+s =  'name\tpassword\n1234567\t123\n'
+print(s.expandtabs(20))
+》字符串的魔法（四 五）
+判断（is ...）字符串是否是数字,字母,大小写(islower)等，标题（首字母大写）操作字符 填充
+test = 'aa'
+c = test.isalnum()
+cc = test.isalpha()
+print(c,cc)
+标题(title,istitle)
+print(test.istitle())
+v = test.title()
+操作字符（join）
+c = ''
+c.join(test)
+或 '_'.join(test)
+填充(rjust_右，ljust_左)，zfill
+v = test.ljust(10,'+')
+去除左右空白,\n,\t,字母（strip,lstrip,rstrip）
+v = test.strip('a')
+先有对应(maketrans)，才能替换（translate）
+m = str.maketrans('asdfg','12345')
+v = 'qwrtsaggfiy'
+print(v.translate(m))
+分隔（rpartition-三次 ,split）
+test = 'qwewrtertw'
+#print(test.split('w'))
+print(test.rpartition('w'))

@@ -1,0 +1,2 @@
+﻿https://jingyan.baidu.com/album/219f4bf788addfde442d38fe.html?picindex=20
+tesseract 1.jpg 1.txt -l chi_sim+equ+eng

@@ -1,0 +1,3 @@
+ftp://ftp.usa.hp.com/SP82763.zip
+ftp://ftp.usa.hp.com/SP84413.zip
+ftp://ftp.usa.hp.com/SP82764.zip

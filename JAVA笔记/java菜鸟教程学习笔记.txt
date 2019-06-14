@@ -1,0 +1,72 @@
+﻿》java基础语法
+基本语法
+大小写敏感，类名(首字母应该大写)，源文件名必须和类名相同，主方法入口public static void main (String[] args)
+》java 对象和类
+构造办法
+public class test{
+	public test(String name){
+	// 构造器里只有一个参数
+}
+}
+创建对象
+public class test {
+	// 这个构造器仅有一个参数：name 
+	public test (String name){
+		System.out.println("名字："+ name);
+	}
+	public static void main(String []args){
+		// 下面的语句将创建一个test对象
+		test vv = new test("张大大");
+	}
+}
+源文件声明原则
+一个源文件只能有一个public类
+一个源文件可以有多个非public类
+源文件的名应该和public类的类名保持一致。如源文件名为test.java，那public类的类名应为test
+如果一个类定义在包中，那么package语句应该在源文件首行
+如果源文件包含import语句，那应该在package 之后类之前
+
+》java 基本数据类型
+八种基本类型，六种数字(四个整数，二个浮点)，一种字符，一种布尔
+byte,short,int,long,float,double,boolean,char
+System.out.println("基本数据类型：byte 二进制位数："+ Byte.SIZE);
+System.out.println("最小值："+ Byte.MIN_VALUE);
+自动类型转换
+1.不能对boolean类型进行转换。应为它作为判断True 还是 False。
+2.在把大容量的类型转换为小类型时必须使用强类型转换。
+3.转换过程可能导致溢出或损失精度
+int i = 128；
+char c = i  //自动类型转换
+byte b = (byte)i; //强制类型转换 
+byte最大值为127，值为128时就会溢出。
+
+》java 变量类型
+类变量：一般有static 修饰
+实例变量： 在方法，构造方法之外，没有static修饰
+局部变量： 在方法里面的
+pulic static test(){
+	static a = 1; 类变量
+	String str = "abc"; 实例变量
+	public void fanfa(){
+		int b =0 ; 方法之类的局部变量
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

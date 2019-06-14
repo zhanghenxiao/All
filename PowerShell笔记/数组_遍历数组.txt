@@ -1,0 +1,11 @@
+ $psaname = Get-Item -Path "C:\Users\succful\Desktop\Download\*"
+#数组的第一个值 
+$psaname.Name[0] 
+初始化数组
+$arr=1,2,3,'a','b','xx';
+
+遍历
+方法1
+foreach($a in $arr){$a}
+方法2
+for($i=0;$i -lt $arr.length;$i++){$arr[$i]}

@@ -1,0 +1,117 @@
+﻿Git https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013743862006503a1c5bf5a783434581661a3cc2084efa000 
+参考网址：http://www.runoob.com/git/git-workflow.html
+Git 工作流程
+
+工作区 一般就是你编写代码的地方
+暂存区（index) (master)
+Git仓库
+
+Git 的工作流程一般是酱紫：
+
+1. 在工作目录中添加、修改文件；
+
+2. 将需要进行版本管理的文件放入暂存区域；
+
+3. 将暂存区域的文件提交到 Git 仓库。
+
+创建仓库git init
+指定Git仓库 git init newrapo
+添加文件到git仓库(前提你工作区有这个文件)
+git add test.txt
+git add Testiamge/
+git commit - m 'this is test'  this is test即为版本 
+git log 查看日志
+git reset --hard 1ce4629  #版本回溯
+
+》 管理修改
+Git是如何跟踪修改的，每次修改，如果不用git add到暂存区，那就不会加入到commit中。
+》撤销修改
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD <file>，就回到了场景1，第二步按场景1操作。
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+》删除文件
+git rm test.txt
+待考证语句 git commit -m "remove test.txt"
+有种情况删错了，但是版本库还有可以一健还原
+git checkout -- test.txt #一健还原
+
+参考网址：https://blog.csdn.net/qq_24147051/article/details/64923471
+报错参考网址：https://blog.csdn.net/dengjianqiang2011/article/details/9260435
+》关联本地git仓库与Github仓库
+git remote add origin githttps://github.com/zhanghenxiao/test
+git push -u origin master第一次推送master分支的所有内容
+》从远程库克隆
+git clone https://github.com/zhanghenxiao/test
+
++++ 分支管理
+》创建与合并开发
+查看分支：git branch
+创建分支：git branch <dev>
+切换分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+合并指定分支到当前分支：git merge <name>
+删除分支：git branch -d <name>
+》解决冲突 （待考证）
+git reflog 比log更详细
+git log --graph --pretty=oneline --abbrev-commit 查看一些信息
+git log --graph命令可以看到分支合并图，大写Q退出
+》分支管理
+git merge --no-ff -m "merge with no-ff" dev
+合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，
+而fast forward合并就看不出来曾经做过合并
+》Bug分支
+隐藏 git stash
+查看隐藏 git stash list
+恢复隐藏 git stash pop，恢复的同时把stash内容也删了
+git stash apply恢复，但是恢复后，stash内容并不删除
+小结
+修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，
+修复后，再git stash pop，回到工作现场。
+》Feature分支
+如果要丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除。
+》多人协作
+多人协作的工作模式：
+首先，可以试图用git push origin <branch-name>推送自己的修改；
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+如果合并有冲突，则解决冲突，并在本地提交；
+没有冲突或者解决掉冲突后，再用git push origin <branch-name>推送就能成功！
+如果git pull提示no tracking information，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream-to <branch-name> origin/<branch-name>。
+这就是多人协作的工作模式，一旦熟悉了，就非常简单。
+
++++ 标签管理
+》创建标签(tag)
+git tag v1.0 可给分支打一个标签
+查看所有标签 git tag
+git log --pretty=oneline --abbrev-commit
+git tag v0.9 f52c633  跟commt id 打上标签
+git show v0.1  查看标签信息
+》操作标签
+git tag -d v0,1 删除标签
+git push origin v0.1 推送标签
+删除已推送的标签
+1.先删除本地的标签 git tag -d v0.1
+git push origin :refs/tags/v0.1
+
++++自定义Git
+配置别名 
+git config --global alias.st status
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

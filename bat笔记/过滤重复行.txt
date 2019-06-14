@@ -1,0 +1,11 @@
+﻿echo 批处理实现过滤重复行  
+
+
+@echo off
+for /f "tokens=*" %%i in (a.txt) do set #%%i=%%i
+(for /f "tokens=2 delims==" %%i in ('set #') do echo %%i)>b.txt
+
+echo 批处理实现过滤重复行
+echo %errorlevel%
+
+pause

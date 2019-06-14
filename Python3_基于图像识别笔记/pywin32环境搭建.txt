@@ -1,0 +1,9 @@
+﻿参考网址：
+https://jingyan.baidu.com/article/6b97984de993431ca2b0bfc2.html
+
+IDLE可以使用  有些pycharm不能导包
+
+可能import win32api 会抛出异常
+可尝试去路径
+python\scripts>python pywin32_postinstall.py -install  
+或者pywin32_postinstall.py -install
